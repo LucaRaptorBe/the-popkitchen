@@ -179,6 +179,7 @@ export default function Home() {
 
   const conceptRef = useReveal();
   const menuRef = useReveal();
+  const traiteurRef = useReveal();
   const eventsRef = useReveal();
   const contactRef = useReveal();
 
@@ -552,7 +553,7 @@ export default function Home() {
       {/* ════════════════════════════════════
           TRAITEUR
           ════════════════════════════════════ */}
-      <section id="traiteur" className="py-28 md:py-36 section-dark relative overflow-hidden">
+      <section id="traiteur" className="py-28 md:py-36 section-dark relative overflow-hidden" ref={traiteurRef}>
         {/* Glow */}
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-terracotta/5 rounded-full blur-[150px] pointer-events-none" />
 
