@@ -6,89 +6,44 @@ import { useEffect, useRef, useState, useCallback } from "react";
    DATA
    ═══════════════════════════════════════════ */
 
-const MENU = {
-  bowls: {
-    title: "Bowls du Monde",
-    subtitle: "Un tour du monde dans votre bol",
-    items: [
-      {
-        name: "Bibimbap Coréen",
-        desc: "Riz, légumes sautés, œuf, sauce gochujang maison",
-        price: "12,50",
-        origin: "Corée",
-        tags: ["halal", "sans-lactose"],
-      },
-      {
-        name: "Poké Bowl Hawaïen",
-        desc: "Riz vinaigré, saumon frais, avocat, edamame, sésame",
-        price: "13,90",
-        origin: "Hawaï",
-        tags: ["sans-gluten"],
-      },
-      {
-        name: "Buddha Bowl",
-        desc: "Quinoa, patate douce rôtie, pois chiches, sauce tahini",
-        price: "11,90",
-        origin: "Mondial",
-        tags: ["veg", "sans-gluten"],
-      },
-    ],
+const INSPIRATIONS = [
+  {
+    name: "Gado Gado",
+    origin: "Indonésie",
+    desc: "Légumes croquants, œufs durs, tofu grillé et sauce cacahuète maison",
+    tags: ["veg"],
   },
-  plats: {
-    title: "Plats Signature",
-    subtitle: "Les recettes qui ont fait notre réputation",
-    items: [
-      {
-        name: "Curry Thaï Coco",
-        desc: "Poulet, légumes croquants, lait de coco, basilic thaï",
-        price: "13,50",
-        origin: "Thaïlande",
-        tags: ["halal", "sans-gluten", "sans-lactose"],
-      },
-      {
-        name: "Tacos Colombiens",
-        desc: "Tortillas maison, viande épicée, guacamole, pico de gallo",
-        price: "12,90",
-        origin: "Colombie",
-        tags: ["halal"],
-      },
-      {
-        name: "Nems Croustillants",
-        desc: "Nems faits maison, sauce nuoc-mâm, salade fraîche",
-        price: "10,90",
-        origin: "Vietnam",
-        tags: ["halal"],
-      },
-    ],
+  {
+    name: "Bento Découverte",
+    origin: "Asie",
+    desc: "Assortiment de saveurs asiatiques, riche en textures, arômes et contrastes",
+    tags: ["halal"],
   },
-  douceurs: {
-    title: "Douceurs & Boissons",
-    subtitle: "La touche sucrée de votre voyage",
-    items: [
-      {
-        name: "Mochi Glacé",
-        desc: "Pistache, matcha, coco, sésame noir, passion",
-        price: "3,50",
-        origin: "Japon",
-        tags: ["sans-gluten"],
-      },
-      {
-        name: "Matcha Latte",
-        desc: "Matcha premium, lait au choix, mousse onctueuse",
-        price: "5,50",
-        origin: "Japon",
-        tags: ["veg"],
-      },
-      {
-        name: "Cheesecake du Jour",
-        desc: "Fraise, caramel beurre salé, ou sésame noir",
-        price: "6,50",
-        origin: "New York",
-        tags: ["veg"],
-      },
-    ],
+  {
+    name: "Bibimbap",
+    origin: "Corée",
+    desc: "Riz, légumes sautés, œuf, sauce gochujang maison",
+    tags: ["halal"],
   },
-};
+  {
+    name: "Mochi Glacé",
+    origin: "Japon",
+    desc: "Pistache, matcha, coco, sésame noir, caramel beurre salé, fruit de la passion",
+    tags: ["sans-gluten"],
+  },
+  {
+    name: "Kimchi Maison",
+    origin: "Corée",
+    desc: "Préparé sur place selon la recette traditionnelle coréenne",
+    tags: ["veg", "sans-gluten"],
+  },
+  {
+    name: "Matcha Latte",
+    origin: "Japon",
+    desc: "Matcha premium, lait au choix, mousse onctueuse",
+    tags: ["veg"],
+  },
+];
 
 const EVENTS = [
   {
@@ -221,7 +176,6 @@ function InstagramIcon({ className = "w-5 h-5" }: { className?: string }) {
 export default function Home() {
   const scrolled = useScrollNav();
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeCategory, setActiveCategory] = useState<keyof typeof MENU>("bowls");
 
   const conceptRef = useReveal();
   const menuRef = useReveal();
@@ -233,11 +187,10 @@ export default function Home() {
   const NAV = [
     { label: "Concept", href: "#concept" },
     { label: "Carte", href: "#carte" },
+    { label: "Traiteur", href: "#traiteur" },
     { label: "Événements", href: "#evenements" },
     { label: "Contact", href: "#contact" },
   ];
-
-  const currentMenu = MENU[activeCategory];
 
   return (
     <div className="grain">
@@ -525,76 +478,66 @@ export default function Home() {
       </section>
 
       {/* ════════════════════════════════════
-          MENU / CARTE
+          FORMULE DU JOUR
           ════════════════════════════════════ */}
       <section id="carte" className="py-28 md:py-36 bg-parchment-light" ref={menuRef}>
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           {/* Header */}
           <div className="text-center mb-16 reveal">
-            <SectionLabel text="Notre carte" />
+            <SectionLabel text="Chaque jour, un nouveau voyage" />
             <h2 className="font-serif text-5xl md:text-7xl italic text-espresso leading-tight">
-              Saveurs du Monde
+              Le Plat du Jour
             </h2>
-            <p className="mt-4 font-hand text-xl text-clay">
-              Des plats qui voyagent pour vous
+          </div>
+
+          {/* Price highlight */}
+          <div className="reveal max-w-2xl mx-auto text-center mb-20">
+            <div className="bg-white rounded-3xl p-10 md:p-14 border border-parchment-dark/30 shadow-[0_2px_30px_rgba(28,18,16,0.04)] relative overflow-hidden">
+              <div className="absolute top-0 right-0 font-serif text-[160px] leading-none text-terracotta/[0.03] -mt-8 -mr-4 select-none pointer-events-none">
+                10,90
+              </div>
+              <div className="relative z-10">
+                <span className="font-serif text-6xl md:text-7xl italic text-espresso">
+                  10,90<span className="text-3xl text-clay-light ml-1">&euro;</span>
+                </span>
+                <p className="font-serif text-xl md:text-2xl italic text-clay mt-4 leading-relaxed">
+                  Une cuisine du monde qui change chaque jour,<br className="hidden md:block" />
+                  au gr&eacute; de l&rsquo;inspiration du chef
+                </p>
+                <p className="text-clay-light text-[14px] mt-6 leading-relaxed max-w-md mx-auto">
+                  Asie, Am&eacute;rique du Sud, Afrique et bien plus encore&hellip;
+                  D&eacute;couvrez chaque midi un plat diff&eacute;rent, fait maison, g&eacute;n&eacute;reux
+                  et toujours pr&eacute;par&eacute; avec des produits frais.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Inspirations grid */}
+          <div className="text-center mb-10 reveal">
+            <h3 className="font-serif text-2xl md:text-3xl italic text-espresso">
+              Nos inspirations
+            </h3>
+            <p className="font-sans text-sm text-clay-light mt-2">
+              Quelques exemples de ce qui vous attend
             </p>
           </div>
 
-          {/* Category tabs */}
-          <div className="flex items-center justify-center gap-2 md:gap-4 mb-14 reveal">
-            {(Object.keys(MENU) as (keyof typeof MENU)[]).map((key) => (
-              <button
-                key={key}
-                onClick={() => setActiveCategory(key)}
-                className={`font-sans text-[12px] md:text-[13px] tracking-wider uppercase font-medium px-5 md:px-7 py-2.5 rounded-full transition-all duration-400 ${
-                  activeCategory === key
-                    ? "bg-espresso text-parchment shadow-lg"
-                    : "text-clay hover:text-espresso hover:bg-parchment-dark/50"
-                }`}
-              >
-                {key === "bowls" ? "Bowls" : key === "plats" ? "Plats" : "Douceurs"}
-              </button>
-            ))}
-          </div>
-
-          {/* Category title */}
-          <div className="text-center mb-10">
-            <h3 className="font-serif text-3xl md:text-4xl italic text-espresso">
-              {currentMenu.title}
-            </h3>
-            <p className="font-sans text-sm text-clay-light mt-2">{currentMenu.subtitle}</p>
-          </div>
-
-          {/* Menu cards grid */}
-          <div className="grid md:grid-cols-3 gap-6 md:gap-8 stagger">
-            {currentMenu.items.map((item) => (
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6 stagger">
+            {INSPIRATIONS.map((item) => (
               <div
                 key={item.name}
-                className="menu-item bg-white rounded-2xl p-7 md:p-8 border border-parchment-dark/30 relative overflow-hidden reveal"
+                className="menu-item bg-white rounded-2xl p-6 md:p-7 border border-parchment-dark/30 relative overflow-hidden reveal"
               >
-                {/* Origin badge */}
-                <div className="flex items-center justify-between mb-5">
-                  <span className="font-sans text-[10px] tracking-[0.3em] uppercase text-terracotta font-semibold">
-                    {item.origin}
-                  </span>
-                  <span className="font-serif text-2xl md:text-3xl italic text-espresso">
-                    {item.price}
-                    <span className="text-sm text-clay-light ml-0.5">&euro;</span>
-                  </span>
-                </div>
-
-                {/* Divider */}
-                <div className="w-full h-[0.5px] bg-parchment-dark/60 mb-5" />
-
-                {/* Name and desc */}
-                <h4 className="font-serif text-xl md:text-2xl italic text-espresso mb-2 leading-tight">
+                <span className="font-sans text-[10px] tracking-[0.3em] uppercase text-terracotta font-semibold">
+                  {item.origin}
+                </span>
+                <h4 className="font-serif text-lg md:text-xl italic text-espresso mt-2 mb-2 leading-tight">
                   {item.name}
                 </h4>
-                <p className="text-clay text-[13px] leading-relaxed mb-5">
+                <p className="text-clay text-[13px] leading-relaxed mb-4">
                   {item.desc}
                 </p>
-
-                {/* Tags */}
                 <div className="flex flex-wrap gap-2">
                   {item.tags.map((t) => (
                     <Tag key={t} type={t} />
@@ -603,10 +546,81 @@ export default function Home() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
 
-          <p className="text-center text-clay-light text-[13px] mt-14 font-serif italic">
-            Carte indicative &mdash; nos plats changent au fil des saisons et de nos inspirations
-          </p>
+      {/* ════════════════════════════════════
+          TRAITEUR
+          ════════════════════════════════════ */}
+      <section id="traiteur" className="py-28 md:py-36 section-dark relative overflow-hidden">
+        {/* Glow */}
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-terracotta/5 rounded-full blur-[150px] pointer-events-none" />
+
+        <div className="relative max-w-6xl mx-auto px-6 lg:px-10">
+          <div className="grid md:grid-cols-2 gap-12 md:gap-20 items-center">
+            {/* Text */}
+            <div className="reveal-left">
+              <span className="font-sans text-[10px] tracking-[0.4em] uppercase text-terracotta-light font-semibold">
+                Service traiteur
+              </span>
+              <h2 className="font-serif text-4xl md:text-6xl italic text-parchment mt-4 mb-6 leading-tight">
+                Une exp&eacute;rience<br />
+                sur mesure
+              </h2>
+              <p className="text-parchment/50 text-[15px] leading-relaxed mb-6">
+                Chez PopKitchen, notre service traiteur n&rsquo;est pas juste un menu.
+                C&rsquo;est une cr&eacute;ation sur mesure, inspir&eacute;e par les gens,
+                les &eacute;motions et les moments qu&rsquo;on partage.
+              </p>
+              <p className="text-parchment/50 text-[15px] leading-relaxed mb-8">
+                &Eacute;v&eacute;nements d&rsquo;entreprise, f&ecirc;tes priv&eacute;es,
+                moments sp&eacute;ciaux &mdash; on imagine ensemble le repas qui vous ressemble.
+                Bentos d&eacute;couverte, buffets du monde, formules sur mesure.
+              </p>
+              <a
+                href="mailto:contact.thepopkitchen@gmail.com"
+                className="inline-flex items-center gap-3 bg-terracotta hover:bg-terracotta-dark text-parchment font-sans text-[13px] tracking-wider uppercase font-medium px-8 py-4 rounded-full transition-all duration-400 shadow-[0_4px_20px_rgba(193,114,71,0.3)]"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+                </svg>
+                Demander un devis
+              </a>
+            </div>
+
+            {/* Visual cards */}
+            <div className="reveal-right space-y-5">
+              {[
+                {
+                  title: "Bento D\u00e9couverte Asiatique",
+                  desc: "Riche en textures, en ar\u00f4mes et en contrastes \u2014 une exp\u00e9rience qu\u2019on d\u00e9couvre avec tous les sens.",
+                },
+                {
+                  title: "Buffet Cuisine du Monde",
+                  desc: "Un voyage culinaire pour vos \u00e9v\u00e9nements : Asie, Am\u00e9rique Latine, Afrique, M\u00e9diterran\u00e9e.",
+                },
+                {
+                  title: "Formule Sur Mesure",
+                  desc: "Dites-nous votre envie, on cr\u00e9e le menu. Adapt\u00e9 \u00e0 tous les r\u00e9gimes alimentaires.",
+                },
+              ].map((item, i) => (
+                <div
+                  key={i}
+                  className="bg-parchment/[0.04] border border-parchment/[0.08] rounded-2xl p-6 md:p-8 hover:border-terracotta/20 transition-colors"
+                >
+                  <span className="font-serif text-4xl italic text-terracotta/15 leading-none">
+                    0{i + 1}
+                  </span>
+                  <h3 className="font-serif text-xl italic text-parchment mt-2 mb-2">
+                    {item.title}
+                  </h3>
+                  <p className="text-parchment/40 text-[13px] leading-relaxed">
+                    {item.desc}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 
@@ -773,6 +787,19 @@ export default function Home() {
                   className="block font-serif text-2xl italic text-espresso mt-2 hover:text-terracotta transition-colors"
                 >
                   04 91 64 51 88
+                </a>
+              </div>
+
+              {/* Email */}
+              <div>
+                <span className="font-sans text-[10px] tracking-[0.4em] uppercase text-terracotta font-semibold">
+                  Email
+                </span>
+                <a
+                  href="mailto:contact.thepopkitchen@gmail.com"
+                  className="block font-sans text-[15px] text-espresso mt-2 hover:text-terracotta transition-colors"
+                >
+                  contact.thepopkitchen@gmail.com
                 </a>
               </div>
 
