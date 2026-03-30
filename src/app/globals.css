@@ -1,146 +1,346 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Outfit:wght@200;300;400;500;600&family=Caveat:wght@400;500;600&display=swap');
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════════
+   THE POPKITCHEN — Warm Editorial Design System
+   ═══════════════════════════════════════════════ */
+
 :root {
-  --background: #faf6f1;
-  --foreground: #2c1810;
-  --copper: #8b5e3c;
-  --copper-light: #b8860b;
-  --copper-dark: #6b3a1f;
-  --cream: #f5ebe0;
-  --cream-dark: #e8d5c4;
-  --brown-dark: #1a0f0a;
-  --gold: #c9a96e;
-  --gold-light: #d4b896;
+  /* Core palette */
+  --espresso: #1C1210;
+  --espresso-mid: #2A1D18;
+  --terracotta: #C17247;
+  --terracotta-light: #D4956E;
+  --terracotta-dark: #A35A32;
+  --parchment: #F2E8DC;
+  --parchment-light: #FAF5EE;
+  --parchment-dark: #E5D5C3;
+  --gold-warm: #B8924A;
+  --gold-bright: #D4AA5C;
+  --sage: #7A8B6F;
+  --sage-light: #C4CEBC;
+  --clay: #8B6F5C;
+  --clay-light: #A89080;
+  --blush: #D4A89A;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-copper: var(--copper);
-  --color-copper-light: var(--copper-light);
-  --color-copper-dark: var(--copper-dark);
-  --color-cream: var(--cream);
-  --color-cream-dark: var(--cream-dark);
-  --color-brown-dark: var(--brown-dark);
-  --color-gold: var(--gold);
-  --color-gold-light: var(--gold-light);
-  --font-sans: 'Inter', sans-serif;
-  --font-serif: 'Playfair Display', serif;
+  --color-espresso: var(--espresso);
+  --color-espresso-mid: var(--espresso-mid);
+  --color-terracotta: var(--terracotta);
+  --color-terracotta-light: var(--terracotta-light);
+  --color-terracotta-dark: var(--terracotta-dark);
+  --color-parchment: var(--parchment);
+  --color-parchment-light: var(--parchment-light);
+  --color-parchment-dark: var(--parchment-dark);
+  --color-gold-warm: var(--gold-warm);
+  --color-gold-bright: var(--gold-bright);
+  --color-sage: var(--sage);
+  --color-sage-light: var(--sage-light);
+  --color-clay: var(--clay);
+  --color-clay-light: var(--clay-light);
+  --color-blush: var(--blush);
+  --font-serif: 'Cormorant Garamond', 'Georgia', serif;
+  --font-sans: 'Outfit', sans-serif;
+  --font-hand: 'Caveat', cursive;
 }
 
-* {
+/* ── Base ── */
+html {
   scroll-behavior: smooth;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: 'Inter', sans-serif;
+  background: var(--parchment-light);
+  color: var(--espresso);
+  font-family: 'Outfit', sans-serif;
+  overflow-x: hidden;
 }
 
-/* Hero parallax overlay */
-.hero-overlay {
-  background: linear-gradient(
-    to bottom,
-    rgba(26, 15, 10, 0.6) 0%,
-    rgba(26, 15, 10, 0.4) 40%,
-    rgba(26, 15, 10, 0.7) 100%
-  );
+/* ── Film grain overlay ── */
+.grain::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px;
 }
 
-/* Decorative flourish */
-.flourish {
-  display: inline-block;
+/* ── Scroll-triggered reveal animations ── */
+.reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-left {
+  opacity: 0;
+  transform: translateX(-60px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-left.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.reveal-right {
+  opacity: 0;
+  transform: translateX(60px);
+  transition: opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.reveal-right.visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* Stagger children */
+.stagger > *:nth-child(1) { transition-delay: 0ms; }
+.stagger > *:nth-child(2) { transition-delay: 120ms; }
+.stagger > *:nth-child(3) { transition-delay: 240ms; }
+.stagger > *:nth-child(4) { transition-delay: 360ms; }
+.stagger > *:nth-child(5) { transition-delay: 480ms; }
+.stagger > *:nth-child(6) { transition-delay: 600ms; }
+.stagger > *:nth-child(7) { transition-delay: 720ms; }
+.stagger > *:nth-child(8) { transition-delay: 840ms; }
+.stagger > *:nth-child(9) { transition-delay: 960ms; }
+
+/* ── Hero ── */
+@keyframes heroFadeIn {
+  from { opacity: 0; transform: scale(1.08); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes heroDrift {
+  0%, 100% { transform: scale(1.0); }
+  50% { transform: scale(1.04); }
+}
+
+@keyframes heroTextUp {
+  from { opacity: 0; transform: translateY(50px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes subtlePulse {
+  0%, 100% { opacity: 0.6; }
+  50% { opacity: 1; }
+}
+
+.hero-bg {
+  animation: heroFadeIn 2s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+             heroDrift 20s ease-in-out infinite 2s;
+}
+
+.hero-text-anim {
+  opacity: 0;
+  animation: heroTextUp 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.hero-text-anim-1 { animation-delay: 0.3s; }
+.hero-text-anim-2 { animation-delay: 0.6s; }
+.hero-text-anim-3 { animation-delay: 0.9s; }
+.hero-text-anim-4 { animation-delay: 1.2s; }
+.hero-text-anim-5 { animation-delay: 1.5s; }
+
+/* ── Nav ── */
+.nav-glass {
+  backdrop-filter: blur(20px) saturate(1.2);
+  -webkit-backdrop-filter: blur(20px) saturate(1.2);
+}
+
+/* ── Menu horizontal scroll ── */
+.menu-scroll {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 1rem;
+  scrollbar-width: none;
+}
+
+.menu-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.menu-scroll > * {
+  scroll-snap-align: start;
+  flex-shrink: 0;
+}
+
+/* ── Menu card ── */
+.menu-item {
   position: relative;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-.flourish::before,
-.flourish::after {
-  content: '~';
-  display: inline-block;
-  margin: 0 0.75rem;
-  opacity: 0.5;
-  font-family: 'Playfair Display', serif;
+.menu-item:hover {
+  transform: translateY(-6px) rotate(-0.5deg);
+  box-shadow: 0 20px 60px rgba(28, 18, 16, 0.12),
+              0 8px 20px rgba(193, 114, 71, 0.08);
 }
 
-/* Section fade-in animation */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.animate-fade-in-up {
-  animation: fadeInUp 0.8s ease-out forwards;
-}
-
-/* Menu card hover effect */
-.menu-card {
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.menu-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px rgba(139, 94, 60, 0.15);
-}
-
-/* Elegant divider */
-.divider {
+/* ── Decorative line ── */
+.line-ornament {
   display: flex;
   align-items: center;
   gap: 1rem;
 }
 
-.divider::before,
-.divider::after {
+.line-ornament::before,
+.line-ornament::after {
   content: '';
   flex: 1;
   height: 1px;
-  background: linear-gradient(to right, transparent, var(--copper), transparent);
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--terracotta),
+    transparent
+  );
+  opacity: 0.3;
 }
 
-/* Nav blur */
-.nav-blur {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-}
-
-/* Gradient text */
-.text-gradient {
-  background: linear-gradient(135deg, var(--gold) 0%, var(--copper-light) 50%, var(--gold-light) 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-/* Image shine effect on hover */
-.image-shine {
+/* ── Event card shimmer ── */
+.event-card {
   position: relative;
+  overflow: hidden;
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+              border-color 0.4s ease;
+}
+
+.event-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    135deg,
+    transparent 0%,
+    rgba(184, 146, 74, 0.04) 50%,
+    transparent 100%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(184, 146, 74, 0.3);
+}
+
+.event-card:hover::before {
+  opacity: 1;
+}
+
+/* ── Warm atmospheric gradient sections ── */
+.section-warm {
+  background: linear-gradient(
+    180deg,
+    var(--parchment) 0%,
+    var(--parchment-light) 50%,
+    var(--parchment) 100%
+  );
+}
+
+.section-dark {
+  background: linear-gradient(
+    180deg,
+    var(--espresso) 0%,
+    var(--espresso-mid) 40%,
+    var(--espresso) 100%
+  );
+}
+
+/* ── Tag badges ── */
+.tag-halal {
+  background: rgba(122, 139, 111, 0.15);
+  color: var(--sage);
+  border: 1px solid rgba(122, 139, 111, 0.25);
+}
+
+.tag-veg {
+  background: rgba(122, 139, 111, 0.1);
+  color: #5B7A4A;
+  border: 1px solid rgba(91, 122, 74, 0.2);
+}
+
+.tag-gluten {
+  background: rgba(184, 146, 74, 0.1);
+  color: var(--gold-warm);
+  border: 1px solid rgba(184, 146, 74, 0.2);
+}
+
+.tag-lactose {
+  background: rgba(212, 168, 154, 0.15);
+  color: #A0766A;
+  border: 1px solid rgba(212, 168, 154, 0.25);
+}
+
+/* ── Scroll indicator ── */
+@keyframes scrollBounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(10px); }
+  60% { transform: translateY(5px); }
+}
+
+.scroll-indicator {
+  animation: scrollBounce 2.5s infinite;
+}
+
+/* ── Map container ── */
+.map-frame {
+  position: relative;
+  border-radius: 1rem;
   overflow: hidden;
 }
 
-.image-shine::after {
+.map-frame::after {
   content: '';
   position: absolute;
-  top: 0;
-  left: -100%;
-  width: 50%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
-  transition: left 0.6s ease;
+  inset: 0;
+  border-radius: 1rem;
+  border: 1px solid rgba(193, 114, 71, 0.15);
+  pointer-events: none;
 }
 
-.image-shine:hover::after {
-  left: 100%;
+/* ── Custom selection color ── */
+::selection {
+  background: rgba(193, 114, 71, 0.25);
+  color: var(--espresso);
+}
+
+/* ── Focus styles ── */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--terracotta);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Marquee ── */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.marquee-track {
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-track:hover {
+  animation-play-state: paused;
 }
