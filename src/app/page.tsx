@@ -341,7 +341,7 @@ export default function Home() {
           className="absolute inset-0 hero-bg bg-cover bg-center"
           style={{
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1920&q=80')",
+              "url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1920&q=80')",
           }}
         />
         {/* Dark gradient overlay */}
@@ -363,18 +363,18 @@ export default function Home() {
             <span className="block font-sans text-[11px] md:text-xs tracking-[0.6em] uppercase text-parchment/40 font-light">
               The
             </span>
-            <h1 className="font-serif text-7xl md:text-9xl lg:text-[10rem] italic text-parchment leading-[0.85] -mt-1">
+            <h1 className="font-serif text-[3.2rem] sm:text-7xl md:text-9xl lg:text-[10rem] italic text-parchment leading-[0.85] -mt-1">
               Popkitchen
             </h1>
           </div>
 
-          {/* Subtitle ornament */}
-          <div className="hero-text-anim hero-text-anim-3 flex items-center justify-center gap-4 my-6 md:my-8">
-            <span className="w-12 md:w-20 h-[0.5px] bg-gradient-to-r from-transparent to-terracotta-light/60" />
-            <span className="font-sans text-[10px] tracking-[0.3em] uppercase text-terracotta-light/80 font-medium">
+          {/* Cuisine du Monde badge */}
+          <div className="hero-text-anim hero-text-anim-3 flex items-center justify-center gap-5 my-8 md:my-10">
+            <span className="w-10 md:w-16 h-[1px] bg-gradient-to-r from-transparent to-terracotta-light/50" />
+            <span className="font-sans text-[13px] md:text-[15px] tracking-[0.35em] uppercase text-parchment font-medium">
               Cuisine du Monde
             </span>
-            <span className="w-12 md:w-20 h-[0.5px] bg-gradient-to-l from-transparent to-terracotta-light/60" />
+            <span className="w-10 md:w-16 h-[1px] bg-gradient-to-l from-transparent to-terracotta-light/50" />
           </div>
 
           {/* Tagline */}
@@ -401,15 +401,22 @@ export default function Home() {
         </div>
 
         {/* Dietary strip at bottom */}
-        <div className="absolute bottom-0 inset-x-0 py-5 bg-gradient-to-t from-espresso/60 to-transparent">
-          <div className="flex items-center justify-center gap-6 md:gap-10 text-parchment/40 text-[10px] tracking-[0.2em] uppercase font-medium">
-            <span>Halal</span>
-            <span className="w-[3px] h-[3px] rounded-full bg-terracotta/50" />
-            <span>V&eacute;g&eacute;tarien</span>
-            <span className="w-[3px] h-[3px] rounded-full bg-terracotta/50" />
-            <span>Sans gluten</span>
-            <span className="w-[3px] h-[3px] rounded-full bg-terracotta/50" />
-            <span>Sans lactose</span>
+        <div className="absolute bottom-0 inset-x-0 py-6 bg-gradient-to-t from-espresso/80 via-espresso/40 to-transparent">
+          <div className="flex flex-wrap items-center justify-center gap-3 md:gap-4 px-6">
+            {[
+              { icon: "\u262A", label: "Halal" },
+              { icon: "\uD83C\uDF31", label: "V\u00e9g\u00e9tarien" },
+              { icon: "\uD83C\uDF3E", label: "Sans gluten" },
+              { icon: "\uD83E\uDD5B", label: "Sans lactose" },
+            ].map((b) => (
+              <span
+                key={b.label}
+                className="inline-flex items-center gap-2 bg-parchment/10 border border-parchment/15 text-parchment/70 text-[11px] tracking-wider font-medium px-4 py-2 rounded-full backdrop-blur-sm"
+              >
+                <span className="text-sm">{b.icon}</span>
+                {b.label}
+              </span>
+            ))}
           </div>
         </div>
 
@@ -668,6 +675,48 @@ export default function Home() {
       </section>
 
       {/* ════════════════════════════════════
+          GALERIE
+          ════════════════════════════════════ */}
+      <section className="py-20 md:py-28 bg-parchment overflow-hidden">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 mb-12 text-center">
+          <SectionLabel text="Notre univers" />
+          <h2 className="font-serif text-4xl md:text-5xl italic text-espresso">
+            Vu sur Instagram
+          </h2>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3 px-2 md:px-6">
+          {[
+            { src: "https://images.unsplash.com/photo-1512058564366-18510be2db19?auto=format&fit=crop&w=600&q=80", alt: "Bibimbap coréen" },
+            { src: "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?auto=format&fit=crop&w=600&q=80", alt: "Curry thaï" },
+            { src: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?auto=format&fit=crop&w=600&q=80", alt: "Tacos" },
+            { src: "https://images.unsplash.com/photo-1563805042-7684c019e1cb?auto=format&fit=crop&w=600&q=80", alt: "Mochi glacé" },
+            { src: "https://images.unsplash.com/photo-1547592180-85f173990554?auto=format&fit=crop&w=600&q=80", alt: "Bowls colorés" },
+            { src: "https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80", alt: "Plats du monde" },
+            { src: "https://images.unsplash.com/photo-1536256263959-770b48d82b0a?auto=format&fit=crop&w=600&q=80", alt: "Matcha latte" },
+            { src: "https://images.unsplash.com/photo-1484723091739-30a097e8f929?auto=format&fit=crop&w=600&q=80", alt: "Brunch" },
+          ].map((img, i) => (
+            <a
+              key={i}
+              href="https://www.instagram.com/the_popkitchen/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative aspect-square overflow-hidden rounded-lg group"
+            >
+              <img
+                src={img.src}
+                alt={img.alt}
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div className="absolute inset-0 bg-espresso/0 group-hover:bg-espresso/40 transition-colors duration-300 flex items-center justify-center">
+                <InstagramIcon className="w-6 h-6 text-parchment opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              </div>
+            </a>
+          ))}
+        </div>
+      </section>
+
+      {/* ════════════════════════════════════
           CONTACT
           ════════════════════════════════════ */}
       <section id="contact" className="section-warm py-28 md:py-36" ref={contactRef}>
@@ -817,6 +866,19 @@ export default function Home() {
           </div>
         </div>
       </footer>
+
+      {/* ════════════════════════════════════
+          STICKY MOBILE PHONE BUTTON
+          ════════════════════════════════════ */}
+      <a
+        href="tel:0491645188"
+        className="fixed bottom-6 right-6 z-40 md:hidden bg-terracotta hover:bg-terracotta-dark text-parchment w-14 h-14 rounded-full flex items-center justify-center shadow-[0_4px_20px_rgba(193,114,71,0.4)] transition-all duration-300 active:scale-95"
+        aria-label="Appeler le restaurant"
+      >
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" />
+        </svg>
+      </a>
     </div>
   );
 }
