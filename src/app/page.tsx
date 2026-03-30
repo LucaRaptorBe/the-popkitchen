@@ -341,7 +341,7 @@ export default function Home() {
           className="absolute inset-0 hero-bg bg-cover bg-center"
           style={{
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1920&q=80')",
+              "url('https://images.unsplash.com/photo-1543353071-087092ec169a?auto=format&fit=crop&w=1920&q=80')",
           }}
         />
         {/* Dark gradient overlay */}
@@ -360,7 +360,8 @@ export default function Home() {
 
           {/* Logo / Title */}
           <div className="hero-text-anim hero-text-anim-2 mt-6 mb-2">
-            <span className="block font-sans text-[11px] md:text-xs tracking-[0.6em] uppercase text-parchment/40 font-light">
+            <span className="block font-sans text-xs md:text-sm tracking-[0.5em] uppercase text-parchment/70 font-medium"
+                  style={{ textShadow: "0 2px 15px rgba(28,18,16,0.5)" }}>
               The
             </span>
             <h1 className="font-serif text-[3.2rem] sm:text-7xl md:text-9xl lg:text-[10rem] italic text-parchment leading-[0.85] -mt-1">
@@ -378,7 +379,8 @@ export default function Home() {
           </div>
 
           {/* Tagline */}
-          <p className="hero-text-anim hero-text-anim-4 font-hand text-2xl md:text-3xl text-parchment/70 mb-10">
+          <p className="hero-text-anim hero-text-anim-4 font-serif text-xl md:text-2xl italic text-parchment/90 mb-10"
+             style={{ textShadow: "0 2px 20px rgba(28,18,16,0.6)" }}>
             Comme chez mamie, mais globetrotteuse
           </p>
 
