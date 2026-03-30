@@ -341,7 +341,7 @@ export default function Home() {
           className="absolute inset-0 hero-bg bg-cover bg-center"
           style={{
             backgroundImage:
-              "url('https://images.unsplash.com/photo-1543353071-087092ec169a?auto=format&fit=crop&w=1920&q=80')",
+              "url('https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&w=1920&q=80')",
           }}
         />
         {/* Dark gradient overlay */}
